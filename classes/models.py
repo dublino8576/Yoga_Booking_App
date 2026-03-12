@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -7,7 +8,7 @@ class Yoga_Type(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.title
+        return self.title # primary key is shown as string representation so when we use foreign key to this model, the title will be shown instead of the id (for example in the admin interface or in a template)
     
 class Teacher(models.Model):
     name = models.CharField(max_length=100)
@@ -31,3 +32,41 @@ class Teacher(models.Model):
         ordering = ['-created_at']
         #create ordering by newest created_at first
 
+
+#####################################################
+
+
+class Yoga_Class(models.Model):
+    yoga_types = models.ForeignKey(Yoga_Type, on_delete=models.CASCADE, related_name='classes') #create a foreign key relationship between Yoga_Class and Yoga_Type models, with a related name of 'classes' for reverse lookups
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='classes') #create a foreign key relationship between Yoga_Class and Teacher models, with a related name of 'classes' for reverse lookups
+    slug = models.SlugField(unique=True, blank=True) #add a slug field to the Yoga_Class model, which will be used to create SEO-friendly URLs for class detail pages (the slug will be automatically generated based on the yoga type title when the object is saved)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    capacity = models.PositiveIntegerField(default=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_cancelled = models.BooleanField(default=False)
+    repeats_weekly = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            #generates a unique slug only if the slug field is empty (which means the object is being created for the first time, not updated).
+            base = f"{self.yoga_types.title} {self.teacher.slug} {self.date}"
+            base_slug = slugify(base) #slugify the base string to create a URL-friendly slug (the slugify function converts the string to lowercase, replaces spaces with hyphens, and removes any special characters)
+            slug = base_slug #initialize the slug variable with the base slug
+            counter = 1
+
+            while Yoga_Class.objects.filter(slug=slug).exists(): #check if a Yoga_Class with the same slug already exists in the database, and if it does, append a counter to the slug until a unique slug is found (this ensures that even if there are multiple classes with the same yoga type, teacher, and date, they will still have unique slugs)
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
+        super().save(*args, **kwargs) #if slug already exists skip slug generation and just save the object to the database
+
+
+    class Meta:
+        verbose_name_plural = 'Yoga Classes'
+        ordering = ['date', 'start_time', 'yoga_types__title']
+        #create ordering by earliest date and start_time first
