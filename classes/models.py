@@ -13,7 +13,7 @@ class Teacher(models.Model):
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     yoga_types = models.ManyToManyField(Yoga_Type, related_name='teachers') #create a many-to-many relationship between Teacher and Yoga_Type models, with a related name of 'teachers' for reverse lookups (reverse lookups allow you to access the related objects from the other side of the relationship)
-    slug = models.SlugField(null=True, blank=True) #add a slug field to the Teacher model, which will be used to create SEO-friendly URLs for teacher profiles (the slug will be automatically generated based on the teacher's name and surname when the object is saved)
+    slug = models.SlugField(unique=True, blank=True) #add a slug field to the Teacher model, which will be used to create SEO-friendly URLs for teacher profiles (the slug will be automatically generated based on the teacher's name and surname when the object is saved)
     email = models.EmailField(unique=True)
     bio = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
