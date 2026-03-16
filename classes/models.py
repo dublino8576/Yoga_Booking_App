@@ -25,8 +25,16 @@ class Teacher(models.Model):
         return f'{self.name} {self.surname}'
     
     def save(self, *args, **kwargs):
+        was_active = True
+        if self.pk: #pk is the primary key of the object, if it exists it means the object is being updated, not created for the first time
+            was_active = Teacher.objects.filter(pk=self.pk).values_list('is_active', flat=True).first() #check the current value of is_active in the database before saving the object, so you can compare it with the new value of is_active after saving and if it changed from True to False, you can cancel all active classes of that teacher (this is necessary because if you check the value of is_active after saving, it will already be updated to the new value, so you need to check it before saving)
+
         self.slug = f'{self.name.lower()}-{self.surname.lower()}'
         super().save(*args, **kwargs) #override the save method to automatically generate a slug based on the teacher's name and surname, and then call the parent class's save method to save the object to the database (works also if new teacher is created outside of the admin interface, for example in a view or a script)
+
+        # If teacher is deactivated, automatically cancel all their active classes.
+        if was_active and not self.is_active:
+            self.classes.filter(is_cancelled=False).update(is_cancelled=True)
     
     class Meta:
         ordering = ['-created_at']
