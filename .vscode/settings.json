@@ -7,5 +7,13 @@
     "other": true,
     "comments": false,
     "strings": true
+  },
+  "[django-html]": {
+    "editor.defaultFormatter": "monosans.djlint",
+    "editor.formatOnSave": true
+  },
+  "files.associations": {
+    "**/templates/*.html": "django-html",
+    "**/templates/**/*.html": "django-html"
   }
 }

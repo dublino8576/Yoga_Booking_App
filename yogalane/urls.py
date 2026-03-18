@@ -21,8 +21,9 @@ from django.conf.urls.static import static #for serving media files in developme
 
 urlpatterns = [
     path('', include('pages.urls')),
-    path('classes/', include('classes.urls')),
+    path('classes/', include('classes.urls'), name='class_list'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls'), name='accounts'),
 ]
 
 # Serve media files in development
