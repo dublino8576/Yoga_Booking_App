@@ -1,3 +1,28 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+#import messages#
+from django.contrib import messages
+from .forms import User_Account_Creation_Form
 
 # Create your views here.
+
+def register(request):
+
+    '''
+    View function for serving the user registration page and handling the registration form submission. 
+
+    When a GET request is made to this view, it will render the registration template (accounts/register.html) which contains the registration form for users to fill out. 
+    
+    When a POST request is made (when the form is submitted), this view will handle the form submission, validate the form data, and create a new user account if the data is valid. If the form data is invalid, it will re-render the registration template with error messages for the user to correct their input.
+    '''
+
+    if request.method == 'POST':
+        form = User_Account_Creation_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            print("User account created successfully!")
+            messages.add_message(request, messages.SUCCESS, "Your account has been created successfully! You can now log in.")
+            return redirect('register')
+    else:
+        form = User_Account_Creation_Form() #creates a form instance from User_Account_Creation_Form when method is GET, which will be empty
+
+    return render(request, 'accounts/register.html', {'form': form})

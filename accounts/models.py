@@ -9,11 +9,10 @@ class User_Account(User):
         ('student', 'Student'),
         ('teacher', 'Teacher'),
     )
-    
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student')
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True) #keep ImageField native django field for testing of image upload functionality(using Pillow). Switch to CloudinaryField later if needed for deployment.
-    phone = models.CharField(max_length=15, blank=True, null=True)
+    
 
     class Meta:
         verbose_name_plural = 'User Accounts'

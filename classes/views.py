@@ -1,12 +1,19 @@
 from multiprocessing import context
 
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Yoga_Class, Teacher, Yoga_Type
 #import generic views
 from django.views import generic
 # Create your views here.
 class Yoga_Class_List(generic.ListView):
+
+    '''
+    View function for serving the list of yoga classes with filtering and pagination.
+    
+    This view will handle GET requests to display a list of yoga classes, and it will also handle filtering the classes based on the date, yoga type, and teacher. The view will use pagination to limit the number of classes displayed per page, and it will optimize the database queries by using select_related to fetch related teacher and yoga type objects in a single query.
+    
+    '''
+
     model = Yoga_Class
     template_name = 'classes/class_list.html'
     context_object_name = 'classes'
