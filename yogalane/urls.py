@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static #for serving media files in development (we will switch to Cloudinary for media file hosting in production, but this is fine for development and testing of image upload functionality using Pillow).
 
 urlpatterns = [
     path('', include('pages.urls')),
     path('classes/', include('classes.urls')),
     path('admin/', admin.site.urls),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
