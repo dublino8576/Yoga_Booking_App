@@ -1,5 +1,6 @@
 #import forms from django
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 #from django.contrib.auth.forms import AuthenticationForm
 from .models import User_Account
@@ -19,7 +20,7 @@ class User_Account_Creation_Form(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email') #get the email from the cleaned_data dictionary
 
-        if User_Account.objects.filter(email=email).exists(): #check if a user with the same email already exists in the database. This is done by querying the User_Account model and filtering for any instances where the email field matches the email provided in the form. If such an instance exists, it means that the email is already in use by another user.
+        if get_user_model().objects.filter(email__iexact=email).exists(): #check against the active auth user model so duplicates are caught even if users were created via get_user_model().
 
             raise forms.ValidationError("A user with that email already exists.") 
         return email #if the email is unique and does not already exist in the database, return the cleaned email value. This allows the form to proceed with saving the new user account using this unique email address.
