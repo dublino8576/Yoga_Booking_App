@@ -40,12 +40,17 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts', 'bookings', 'classes', 'pages',
 ]
+
+CRISPY_ALLOW_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5" #These variables tells django-crispy-forms to use Bootstrap 5 for styling the forms.
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
