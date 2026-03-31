@@ -5,6 +5,15 @@ from .forms import User_Account_Creation_Form
 
 # Create your views here.
 
+def accounts(request):
+    '''
+    View function for serving the accounts page. 
+
+    This view will render the accounts template (accounts/accounts.html) which displays information about the user's account and provides options for managing their account settings, such as updating their profile information or changing their password.
+    '''
+
+    return render(request, 'accounts/accounts.html')
+
 def register(request):
 
     '''
@@ -21,7 +30,7 @@ def register(request):
             form.save()
             print("User account created successfully!")
             messages.add_message(request, messages.SUCCESS, "Your account has been created successfully! You can now log in.")
-            return redirect('register')
+            return redirect('/')
     else:
         form = User_Account_Creation_Form() #creates a form instance from User_Account_Creation_Form when method is GET, which will be empty
 
