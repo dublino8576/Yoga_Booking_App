@@ -1,6 +1,6 @@
 #import forms from django
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 #from django.contrib.auth.forms import AuthenticationForm
 from .models import User_Account
 
@@ -36,3 +36,6 @@ class User_Account_Creation_Form(UserCreationForm):
 
             user.save()
         return user #return the user instance after saving it to the database. This allows us to use the saved user instance in other parts of our code, such as in views or when creating related objects.
+    
+
+
