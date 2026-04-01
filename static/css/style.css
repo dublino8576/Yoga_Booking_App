@@ -1,8 +1,43 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
+
+:root {
+  /* Core theme colors */
+  --color-text-main: #000000;
+  --color-bg-surface: #212529;
+  --color-nav-main: #ffffff;
+  --color-text-muted: #e9ecef;
+
+  /* Accent / brand shades */
+  --color-brand-900: #2a0038;
+  --color-brand-800: #3b014f;
+  --color-brand-700: #5c0f73;
+  --color-brand-200: #c8a6ff;
+
+  /* Utility */
+  --color-border-soft: rgba(255, 255, 255, 0.2);
+  --color-overlay-dark: rgba(0, 0, 0, 0.45);
+
+  /* Existing alert glass colors */
+  --color-alert-primary: rgba(207, 226, 255, 0.72);
+  --color-alert-secondary: rgba(226, 227, 229, 0.72);
+  --color-alert-success: rgba(209, 231, 221, 0.72);
+  --color-alert-danger: rgba(248, 215, 218, 0.72);
+  --color-alert-warning: rgba(255, 243, 205, 0.75);
+  --color-alert-info: rgba(207, 244, 252, 0.72);
+  --color-alert-light: rgba(252, 252, 253, 0.78);
+  --color-alert-dark: rgba(206, 212, 218, 0.72);
+
+  /* Hero content panel */
+  --color-hero-panel-bg: rgba(42, 0, 56, 0.8);
+  --color-hero-panel-border: rgba(200, 166, 255, 0.35);
+}
+
 body {
   margin: 0;
   font-family: "Work Sans", sans-serif;
   font-weight: 800;
+  background-color: var(--color-brand-200);
+  color: var(--color-text-main);
 }
 
 html,
@@ -12,7 +47,22 @@ body {
 }
 
 header {
-  background: #000;
+  background: var(--color-bg-main);
+}
+
+footer,
+.navbar.bg-dark.navbar-dark {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-900),
+    var(--color-brand-800)
+  );
+  color: var(--color-brand-200);
+}
+
+.navbar-nav .nav-item.active > .nav-link,
+.navbar-nav .nav-link.active {
+  color: var(--color-nav-main) !important;
 }
 
 .navbar-nav {
@@ -33,18 +83,12 @@ header {
   text-decoration: none;
   text-transform: uppercase;
   font-size: 14px;
-  color: #ffffff;
+  color: var(--color-brand-200);
 }
 
-.navbar.navbar-dark .navbar-brand,
-.navbar.navbar-dark .navbar-nav .nav-link {
-  color: #ffffff;
-}
-
-.navbar.navbar-dark .navbar-brand:hover,
-.navbar.navbar-dark .navbar-nav .nav-link:hover,
-.navbar.navbar-dark .navbar-nav .nav-link:focus {
-  color: #ffffff;
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--color-brand-200) !important;
 }
 
 .navbar .navbar-link {
@@ -55,7 +99,7 @@ header {
   content: "";
   display: block;
   height: 5px;
-  background-color: #ffffff;
+  background-color: var(--color-brand-200);
 
   position: absolute;
   top: 0;
@@ -72,23 +116,125 @@ header {
   font-weight: 400;
 }
 
+.dropdown-menu {
+  background-color: var(--color-brand-900);
+  border: 1px solid var(--color-border-soft);
+}
+
+.dropdown-item {
+  color: var(--color-text-main);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--color-brand-700);
+  color: var(--color-brand-200);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-brand-700);
+  --bs-btn-border-color: var(--color-brand-700);
+  --bs-btn-hover-bg: var(--color-brand-800);
+  --bs-btn-hover-border-color: var(--color-brand-800);
+  --bs-btn-active-bg: var(--color-brand-900);
+  --bs-btn-active-border-color: var(--color-brand-900);
+  --bs-btn-color: var(--color-brand-200);
+}
+
+.btn-secondary {
+  --bs-btn-bg: var(--color-bg-surface);
+  --bs-btn-border-color: var(--color-bg-surface);
+  --bs-btn-hover-bg: var(--color-brand-800);
+  --bs-btn-hover-border-color: var(--color-brand-800);
+  --bs-btn-active-bg: var(--color-brand-900);
+  --bs-btn-active-border-color: var(--color-brand-900);
+  --bs-btn-color: var(--color-brand-200);
+}
+
+.btn-info {
+  --bs-btn-bg: var(--color-brand-200);
+  --bs-btn-border-color: var(--color-brand-200);
+  --bs-btn-hover-bg: #b58fff;
+  --bs-btn-hover-border-color: #b58fff;
+  --bs-btn-active-bg: #a477ff;
+  --bs-btn-active-border-color: #a477ff;
+  --bs-btn-color: #1a1026;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--color-brand-200);
+  --bs-btn-border-color: var(--color-brand-200);
+  --bs-btn-hover-bg: var(--color-brand-200);
+  --bs-btn-hover-border-color: var(--color-brand-200);
+  --bs-btn-hover-color: #1a1026;
+  --bs-btn-active-bg: var(--color-brand-200);
+  --bs-btn-active-border-color: var(--color-brand-200);
+  --bs-btn-active-color: #1a1026;
+}
+
+.btn-outline-success {
+  --bs-btn-color: #74f0b0;
+  --bs-btn-border-color: #74f0b0;
+  --bs-btn-hover-bg: #74f0b0;
+  --bs-btn-hover-border-color: #74f0b0;
+  --bs-btn-hover-color: #102118;
+  --bs-btn-active-bg: #55d997;
+  --bs-btn-active-border-color: #55d997;
+  --bs-btn-active-color: #102118;
+}
+
+.card,
+.card-header,
+.modal-content,
+.form-control,
+.form-select,
+.page-link {
+  background-color: var(--color-nav-main);
+  color: var(--color-text-main);
+  border-color: var(--color-border-soft);
+}
+
+.form-control::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-brand-200);
+  box-shadow: 0 0 0 0.2rem rgba(200, 166, 255, 0.35);
+}
+
+.page-link:hover,
+.page-link:focus {
+  background-color: var(--color-brand-700);
+  color: var(--color-text-main);
+}
+
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
 /* Hero Section */
 
 .hero-video-wrapper {
-  width: 100vw;
+  width: 100%;
   position: relative;
   overflow: hidden;
   line-height: 0;
+  height: 100vh;
+  min-height: 100vh; /* fallback for older browsers */
+  height: 100svh;
+  min-height: 100svh;
+  /* Ensure the hero section takes up the full viewport height on all devices svh is different from vh because svh considers the size of the viewport including the browser UI */
 }
 
 .hero-video {
   display: block; /* Remove default inline spacing */
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
-  position: relative;
-  z-index: -1;
-  overflow: hidden;
+  position: absolute;
+  inset: 0;
   mix-blend-mode: multiply;
 }
 
@@ -96,6 +242,35 @@ header {
   position: absolute;
   inset: 0;
   z-index: 2;
+}
+
+.hero-content-panel {
+  max-width: 54rem;
+  line-height: 1.4;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: var(--color-hero-panel-bg);
+  border: 1px solid var(--color-hero-panel-border);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.hero-cta-btn {
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .hero-cta-btn {
+    width: calc(100% - 2rem);
+    max-width: 20rem;
+  }
+
+  .hero-content-panel {
+    width: calc(100% - 2rem);
+    margin-inline: auto;
+    padding: 1.25rem;
+  }
 }
 
 /* Alert styles */
@@ -117,33 +292,35 @@ header {
 }
 /* Custom background colors for each alert type with glass effect */
 .alert-glass.alert-primary {
-  --bs-alert-bg: rgba(207, 226, 255, 0.72);
+  --bs-alert-bg: var(--color-alert-primary);
 }
 
 .alert-glass.alert-secondary {
-  --bs-alert-bg: rgba(226, 227, 229, 0.72);
+  --bs-alert-bg: var(--color-alert-secondary);
 }
 
 .alert-glass.alert-success {
-  --bs-alert-bg: rgba(209, 231, 221, 0.72);
+  --bs-alert-bg: var(--color-alert-success);
 }
 
 .alert-glass.alert-danger {
-  --bs-alert-bg: rgba(248, 215, 218, 0.72);
+  --bs-alert-bg: var(--color-alert-danger);
 }
 
 .alert-glass.alert-warning {
-  --bs-alert-bg: rgba(255, 243, 205, 0.75);
+  --bs-alert-bg: var(--color-alert-warning);
 }
 
 .alert-glass.alert-info {
-  --bs-alert-bg: rgba(207, 244, 252, 0.72);
+  --bs-alert-bg: var(--color-alert-info);
 }
 
 .alert-glass.alert-light {
-  --bs-alert-bg: rgba(252, 252, 253, 0.78);
+  --bs-alert-bg: var(--color-alert-light);
 }
 
 .alert-glass.alert-dark {
-  --bs-alert-bg: rgba(206, 212, 218, 0.72);
+  --bs-alert-bg: var(--color-alert-dark);
 }
+
+/* Responsive adjustments for smaller screens */
