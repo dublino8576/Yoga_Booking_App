@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import User_Account_Creation_Form
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.views import LoginView
 
 # Create your views here.
 
@@ -14,6 +15,16 @@ def accounts(request):
     '''
 
     return render(request, 'accounts/accounts.html')
+
+
+class CustomLoginView(LoginView):
+    """
+    Extend Django LoginView to show a one-time success message after sign in.
+    """
+
+    def form_valid(self, form):
+        messages.success(self.request, "You have logged in successfully.")
+        return super().form_valid(form)
 
 def register(request):
 

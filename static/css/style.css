@@ -5,6 +5,12 @@ body {
   font-weight: 800;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 header {
   background: #000;
 }
@@ -64,4 +70,80 @@ header {
 
 .modal-body p {
   font-weight: 400;
+}
+
+/* Hero Section */
+
+.hero-video-wrapper {
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.hero-video {
+  display: block; /* Remove default inline spacing */
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  position: relative;
+  z-index: -1;
+  overflow: hidden;
+  mix-blend-mode: multiply;
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* Alert styles */
+
+.intro-message {
+  position: relative;
+  top: 20px;
+  z-index: 2;
+}
+
+.alert-glass {
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.site-alert {
+  z-index: 1200;
+  pointer-events: auto;
+}
+/* Custom background colors for each alert type with glass effect */
+.alert-glass.alert-primary {
+  --bs-alert-bg: rgba(207, 226, 255, 0.72);
+}
+
+.alert-glass.alert-secondary {
+  --bs-alert-bg: rgba(226, 227, 229, 0.72);
+}
+
+.alert-glass.alert-success {
+  --bs-alert-bg: rgba(209, 231, 221, 0.72);
+}
+
+.alert-glass.alert-danger {
+  --bs-alert-bg: rgba(248, 215, 218, 0.72);
+}
+
+.alert-glass.alert-warning {
+  --bs-alert-bg: rgba(255, 243, 205, 0.75);
+}
+
+.alert-glass.alert-info {
+  --bs-alert-bg: rgba(207, 244, 252, 0.72);
+}
+
+.alert-glass.alert-light {
+  --bs-alert-bg: rgba(252, 252, 253, 0.78);
+}
+
+.alert-glass.alert-dark {
+  --bs-alert-bg: rgba(206, 212, 218, 0.72);
 }
