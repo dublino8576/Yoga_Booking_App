@@ -16,7 +16,7 @@
           rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
-  <body class="bg-light d-flex flex-column min-vh-100">
+  <body class="d-flex flex-column min-vh-100 w-100">
     <!-- NAV -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
@@ -32,8 +32,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto align-items-lg-center">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'index' %}">Home
+                {% if request.resolver_match.url_name == 'index' %}<span class="visually-hidden">current</span>{% endif %}
+              </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'class_list' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'class_list' %}">Classes
+                {% if request.resolver_match.url_name == 'class_list' %}<span class="visually-hidden">current</span>{% endif %}
+              </a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle"
@@ -57,7 +64,8 @@
                   <button type="submit" class="nav-link">Logout</button>
                 </form>
               {% else %}
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
+                   href="{% url 'login' %}">Login</a>
               {% endif %}
             </li>
           </ul>
@@ -65,15 +73,15 @@
       </div>
     </nav>
     <!-- PAGE CONTENT -->
-    <main class="container py-5">
-      {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}!</p>
+    <main class="position-relative">
+      {% comment %} {% if user.is_authenticated %}
+        <p class="intro-message">Welcome, {{ user.username }}!</p>
       {% else %}
-        <p>Please log in to access your account.</p>
-      {% endif %}
+        <p class="intro-message">Please log in to access your account.</p>
+      {% endif %} {% endcomment %}
       {% if messages %}
         {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show position-absolute site-alert alert-glass"
                role="alert">
             <!-- Alert attributes show different styles based on message type -->
             {{ message }}
@@ -88,7 +96,7 @@
       {% endblock content %}
     </main>
     <!-- FOOTER -->
-    <footer class="bg-dark text-white text-center py-3 mt-auto">
+    <footer class="text-center py-3 mt-auto">
       <small>© 2026 Yoga Lane</small>
     </footer>
     <!-- Bootstrap 5 JavaScript -->

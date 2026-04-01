@@ -1,14 +1,38 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     Home
 {% endblock title %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="mb-4">Welcome to Our Yoga Studio</h1>
-                <p class="lead">Find the perfect yoga class for you!</p>
+    <section class="hero-video-wrapper overflow-hidden"
+             aria-label="Hero section video background">
+        <div class="hero-content d-flex align-items-center">
+            <div class="container text-white text-center text-md-start">
+                <div class="hero-content-panel d-inline-flex flex-column align-items-center align-items-md-start">
+                    <h1 class="display-4 fw-bold mb-3">Welcome to Yoga Lane</h1>
+                    <p class="lead mb-4">Find the perfect yoga class for you!</p>
+                    <a href="{% url 'class_list' %}" class="btn btn-primary hero-cta-btn">View Classes</a>
+                </div>
             </div>
         </div>
-    </div>
+        <video class="hero-video"
+               autoplay
+               muted
+               loop
+               playsinline
+               alt="studio_yoga_practice"
+               aria-label="studio_yoga_practice"
+               title="studio_yoga_practice">
+            <source src="{% static 'videos/studio_yoga_practice.webm' %}"
+                    type="video/webm" />
+            Your browser does not support the studio_yoga_practice video.
+        </video>
+        {% comment %} <div class="hero-overlay"></div> {% endcomment %}
+        {% comment %} <div class="hero-content d-flex align-items-center">
+            <div class="container text-white text-center text-md-start">
+                <h1 class="display-4 fw-bold mb-3">Welcome to Our Yoga Studio</h1>
+                <p class="lead mb-0">Find the perfect yoga class for you!</p>
+            </div>
+        </div> {% endcomment %}
+    </section>
 {% endblock content %}
