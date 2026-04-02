@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock extra_head %}
 {% block content %}
-    <div class="container">
+    <div class="container mb-5">
         <div class="row justify-content-center">
-            <h2 class="pt-5 pb-3">Welcome {{ user.username }}!</h2>
-            <div class="col-12 col-md-8 col-lg-6 d-flex flex-column align-items-center position-relative">
+            <h2 class="pt-5 pb-3 mb-4">Welcome {{ user.username }}!</h2>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center position-relative mb-4 mb-lg-0 py-3">
                 <form id="profile-img-form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <button id="profile-picture-btn"
@@ -43,10 +43,47 @@
                      height="280"
                      class="rounded-circle mx-auto mb-4 d-inline-block" />
             </div>
-            <div class="col-12 col-md-8 col-lg-6 d-flex flex-column align-items-center position-relative">
-                <p>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center">
+                <p class="mb-4">
                     Welcome to your profile page! Here you can view and manage your account details, bookings, and preferences. Feel free to explore and update your information as needed.
                 </p>
+                <div class="card border rounded p-4 w-100">
+                    <h5 class="mb-3">Personal Details</h5>
+                    <div class="mb-2">
+                        <strong>Name:</strong> {{ profile_user.first_name }} {{ profile_user.last_name }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Email:</strong> {{ profile_user.email }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Username:</strong> {{ profile_user.username }}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Role:</strong> <span class="badge">Yoga {{ profile_user.get_role_display }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <h2 class="pt-5 pb-3">My Bookings</h2>
+                <div class="card border rounded p-4 mb-4 d-inline-block">
+                    {% if bookings %}
+                        <ul class="list-group">
+                            {% for booking in bookings %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>{{ booking.yoga_class.name }}</strong>
+                                        <br>
+                                        {{ booking.yoga_class.description|truncatechars:100 }}
+                                        <br>
+                                        <small class="text-muted">{{ booking.yoga_class.start_time|date:"F j, Y, g:i a" }}</small>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>You have no upcoming bookings.</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
