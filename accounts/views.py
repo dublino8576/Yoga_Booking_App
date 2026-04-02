@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 #import messages#
 from django.contrib import messages
-from .forms import User_Account_Creation_Form
+from django.contrib.auth.decorators import login_required
+from .forms import User_Account_Creation_Form, ProfilePictureForm
+from .models import User_Account
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.views import LoginView
 
@@ -57,3 +59,22 @@ def logout_view(request):
         auth_logout(request) #logs out the user by calling the logout function from django.contrib.auth, which clears the user's session and logs them out of the application. This is typically done in response to a POST request to ensure that the logout action is intentional and not triggered by a simple GET request (which could be accidentally triggered by a user clicking a link or refreshing the page).
     messages.add_message(request, messages.SUCCESS, "You have been logged out successfully.")
     return redirect('login')
+
+
+@login_required #this decorator ensures that only authenticated users can access the my_profile view. If an unauthenticated user tries to access this view, they will be redirected to the login page. This is important for protecting user profile information and ensuring that only logged-in users can view and edit their own profiles.
+def my_profile(request):
+    try:
+        profile_user = request.user.user_account
+    except User_Account.DoesNotExist:
+        profile_user = User_Account.objects.create(user_ptr=request.user)
+
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES, instance=profile_user) #gets the submitted form data (request.POST) and any uploaded files (request.FILES) and creates an instance of the ProfilePictureForm with this data.
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile picture has been updated.')
+            return redirect('my_profile')
+    else:
+        form = ProfilePictureForm(instance=profile_user)
+
+    return render(request, 'accounts/my_profile.html', {'form': form, 'profile_user': profile_user})
