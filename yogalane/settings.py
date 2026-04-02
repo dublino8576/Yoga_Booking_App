@@ -17,17 +17,7 @@ if os.path.isfile('env.py'):
     import env
 
 import dj_database_url
-
-# Only import cloudinary if CLOUDINARY_URL is set and properly formatted
-if os.environ.get('CLOUDINARY_URL'):
-    # Validate format before importing
-    if os.environ.get('CLOUDINARY_URL').startswith('cloudinary://'):
-        import cloudinary
-    else:
-        import warnings
-        warnings.warn('CLOUDINARY_URL is set but has invalid format. Expected cloudinary://api_key:api_secret@cloud_name')
-else:
-    cloudinary = None
+import cloudinary
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
