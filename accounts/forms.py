@@ -2,6 +2,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from pathlib import Path
+from django.core.exceptions import ValidationError
 #from django.contrib.auth.forms import AuthenticationForm
 from .models import User_Account
 
@@ -40,3 +42,35 @@ class User_Account_Creation_Form(UserCreationForm):
     
 
 
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = User_Account
+        fields = ["profile_picture"]
+        widgets = {
+            "profile_picture": forms.ClearableFileInput(
+                attrs={"accept": "image/jpeg,image/png,image/webp"} #restrict file input to only accept JPEG, PNG, and WEBP image formats. This is done by setting the accept attribute of the ClearableFileInput widget to a comma-separated list of MIME types corresponding to the allowed image formats. This helps ensure that users can only upload valid image files for their profile picture.
+            )
+        }
+
+    def clean_profile_picture(self):
+        image = self.cleaned_data.get("profile_picture") #gets the uploaded image file from the cleaned_data dictionary after the form has been submitted and validated. This method is responsible for validating the uploaded profile picture to ensure it meets certain criteria (such as file type and size) before it is saved to the user's account.
+
+        # No new file uploaded; allow keeping current image.
+        if not image:
+            return image
+
+        allowed_extensions = {".jpg", ".jpeg", ".png", ".webp"}
+        ext = Path(image.name).suffix.lower()
+        if ext not in allowed_extensions:
+            raise ValidationError("Only JPG, PNG, or WEBP files are allowed.")
+
+        allowed_mime_types = {"image/jpeg", "image/png", "image/webp"}
+        content_type = getattr(image, "content_type", "").lower()
+        if content_type not in allowed_mime_types:
+            raise ValidationError("Invalid image type. Upload JPG, PNG, or WEBP.")
+
+        max_size_mb = 5
+        if image.size > max_size_mb * 1024 * 1024:
+            raise ValidationError("Image must be 5MB or smaller.")
+
+        return image
