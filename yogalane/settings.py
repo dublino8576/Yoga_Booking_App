@@ -17,7 +17,17 @@ if os.path.isfile('env.py'):
     import env
 
 import dj_database_url
-import cloudinary
+
+# Only import cloudinary if CLOUDINARY_URL is set and properly formatted
+if os.environ.get('CLOUDINARY_URL'):
+    # Validate format before importing
+    if os.environ.get('CLOUDINARY_URL').startswith('cloudinary://'):
+        import cloudinary
+    else:
+        import warnings
+        warnings.warn('CLOUDINARY_URL is set but has invalid format. Expected cloudinary://api_key:api_secret@cloud_name')
+else:
+    cloudinary = None
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -133,10 +143,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For production static files collection
 
 # Media files (User uploads like profile pictures)
-# Use Cloudinary in production (Heroku), local storage in development
-if os.environ.get('CLOUDINARY_URL'):
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    MEDIA_URL = '/media/'
-else:
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Use Cloudinary for media storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = '/media/'
