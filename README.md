@@ -27,7 +27,10 @@ A responsive Django web application for browsing yoga classes, creating student 
 
 ## Validation
 
-
+- HTML Validator
+- CSS Validator
+- Lighthouse
+[Validation Report](validations.md)
 
 ## UX Design
 
@@ -64,11 +67,6 @@ Custom styling is stored in:
 ### UX Documentation
 
 The final interface was developed from a mobile-first layout plan and implemented directly in Django templates with Bootstrap components.
-
-Note:
-
-- This repository does not currently include standalone wireframe or mockup image files.
-- The final implementation reflects the planned user journeys and a consistent booking dashboard layout.
 
 ### Screenshots
 
