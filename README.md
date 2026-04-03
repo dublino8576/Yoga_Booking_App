@@ -2,11 +2,10 @@
 
 A responsive Django web application for browsing yoga classes, creating student accounts, booking classes through Stripe Checkout, and managing a personal booking dashboard.
 
-- Repository: https://github.com/dublino8576/Yoga-Booking-App-
-- Live site: add your deployed Heroku URL here
-
 ## Table of Contents
 
+- [Live Site](#live-site)
+- [Validation](#validation)
 - [UX Design](#ux-design)
 - [Agile Methodology](#agile-methodology)
 - [Features](#features)
@@ -22,9 +21,13 @@ A responsive Django web application for browsing yoga classes, creating student 
 
 ## Live Site
 
-- Live site URL: add your Heroku deployment URL here
+- [Yogalane Website](https://yogalane-760a26bf11ef.herokuapp.com/)
 
 ---
+
+## Validation
+
+
 
 ## UX Design
 
@@ -71,22 +74,45 @@ Note:
 
 Add your project screenshots here once they are exported into the repository. Suggested screenshots:
 
-- Home page
-- Class list page
-- Register / login page
-- Student dashboard with bookings
-- Stripe Checkout success flow
-- Django admin booking view
-- Automated test run showing all tests passed
+#### Home page
+<img width="2850" height="1904" alt="yogalane-760a26bf11ef herokuapp com_" src="https://github.com/user-attachments/assets/7ef11241-42f3-4bf0-9862-c0474c165c48" />
 
-Example format:
+#### Class list page
+<img width="2850" height="1800" alt="yogalane-760a26bf11ef herokuapp com_classes__page=2" src="https://github.com/user-attachments/assets/ffbaa311-02aa-4188-a5aa-4441bbc8c809" />
 
-```markdown
-![Home page](path/to/home-page.png)
-![Class list page](path/to/class-list-page.png)
-![Student dashboard](path/to/dashboard.png)
-![Automated tests passed](path/to/tests-passed.png)
-```
+#### Register / login page
+<img width="2850" height="2084" alt="yogalane-760a26bf11ef herokuapp com_accounts_register_" src="https://github.com/user-attachments/assets/f4bb58d4-d8db-4ce1-af1e-37ae8adc5c3c" />
+<img width="2880" height="1680" alt="yogalane-760a26bf11ef herokuapp com_accounts_login_" src="https://github.com/user-attachments/assets/84d217fc-8f40-4750-a764-b6e3e5f4bae5" />
+
+#### Student dashboard with bookings
+<img width="2850" height="3052" alt="yogalane-760a26bf11ef herokuapp com_accounts_my_profile_ (1)" src="https://github.com/user-attachments/assets/b3b6b1aa-1764-49bc-89c7-2ba109ba77f9" />
+
+#### Stripe Checkout success flow
+<img width="2048" height="1680" alt="checkout stripe com_c_pay_cs_test_a1DLetZquu0uBI35ijCngN98dSwd96UhMOnNt1qXmkaR16ALqsTMIvrBb4" src="https://github.com/user-attachments/assets/fbb1fe6a-9649-47a3-90f8-b5f83cbc995d" />
+
+#### Django admin User list
+<img width="2880" height="1680" alt="yogalane-760a26bf11ef herokuapp com_admin_auth_user_ (1)" src="https://github.com/user-attachments/assets/a7b00987-1c2b-4aa7-84fa-f0ebbf0c118e" />
+
+#### Django admin Teacher list
+<img width="2880" height="1680" alt="yogalane-760a26bf11ef herokuapp com_admin_classes_teacher_" src="https://github.com/user-attachments/assets/c81f02f0-ac16-469b-8623-12fd8ad3a928" />
+
+#### Django admin Yoga Type
+<img width="2880" height="1680" alt="yogalane-760a26bf11ef herokuapp com_admin_classes_yoga_type_" src="https://github.com/user-attachments/assets/45430c2d-f07e-450d-b457-d9c5afb8c5b0" />
+
+#### Django admin Yoga Classes list
+<img width="2850" height="2384" alt="yogalane-760a26bf11ef herokuapp com_admin_classes_yoga_class_" src="https://github.com/user-attachments/assets/60423cbf-e92c-47b1-98e2-4e22dd15615a" />
+
+#### Django admin Yoga Class form
+<img width="2850" height="1916" alt="yogalane-760a26bf11ef herokuapp com_admin_classes_yoga_class_6_change_" src="https://github.com/user-attachments/assets/71d75104-235f-4de5-943c-a11a76d936b3" />
+
+#### Django admin Booking list (read only)
+<img width="2880" height="1680" alt="yogalane-760a26bf11ef herokuapp com_admin_bookings_booking_" src="https://github.com/user-attachments/assets/742742cd-2329-4501-a63f-3598308360ec" />
+
+#### Django admin Booking details (read only)
+<img width="2880" height="1680" alt="yogalane-760a26bf11ef herokuapp com_admin_bookings_booking_20_change_" src="https://github.com/user-attachments/assets/a3502664-bbd8-425f-91d7-7d7c212ff5d0" />
+
+#### Automated test run showing all tests passed
+<img width="1338" height="339" alt="python-tests-yogalane" src="https://github.com/user-attachments/assets/98d096e2-7c11-469e-a2c0-f41e4434b1b6" />
 
 ---
 
