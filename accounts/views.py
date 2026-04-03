@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 #import messages#
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from .forms import User_Account_Creation_Form, ProfilePictureForm
 from .models import User_Account
+from bookings.models import Booking
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.views import LoginView
 
@@ -77,4 +79,21 @@ def my_profile(request):
     else:
         form = ProfilePictureForm(instance=profile_user)
 
-    return render(request, 'accounts/my_profile.html', {'form': form, 'profile_user': profile_user})
+    today = timezone.localdate()
+    upcoming_bookings = Booking.objects.filter(
+        user=request.user,
+        yoga_class__date__gte=today,
+        status__in=[1, 2],
+    ).order_by('yoga_class__date', 'yoga_class__start_time') #get the booking for the current user, this will return a queryset of Booking objects that are associated with the currently logged-in user (the user is accessed through request.user, which is provided by Django's authentication system). Yoga classes that are in the past (yoga_class__date__gte=today) are excluded from the queryset, so only upcoming bookings will be included in the results. (class__date__gt=today is a filter that checks if the date of the yoga class associated with the booking is greater than the current date, which means the class is in the future). The results are ordered by the date and start time of the yoga class in descending order, so the most recent upcoming classes will be shown first.
+
+    active_bookings = upcoming_bookings.filter(status=1)#filter the booking queryset to get only the active bookings (status=1 means confirmed bookings)
+    cancelled_bookings = upcoming_bookings.filter(status=2)#filter the booking queryset to get only the cancelled bookings (status=2 means cancelled bookings)
+
+    context = {
+        'form': form,
+        'profile_user': profile_user,
+        'active_bookings': active_bookings,
+        'cancelled_bookings': cancelled_bookings,
+    }
+
+    return render(request, 'accounts/my_profile.html', context)

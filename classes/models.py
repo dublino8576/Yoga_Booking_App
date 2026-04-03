@@ -56,6 +56,7 @@ class Yoga_Class(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_cancelled = models.BooleanField(default=False)
     repeats_weekly = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=10.00) #add a price field to the Yoga_Class model, which will be used to store the price of each class for payment
 
     def save(self, *args, **kwargs):
         if not self.slug:

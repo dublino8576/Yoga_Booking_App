@@ -65,13 +65,13 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ class.teacher.name }} {{ class.teacher.surname }}</h5>
-                                <ul class="list-unstyled mb-0 text-muted small">
+                                <ul class="list-unstyled mb-0 small ">
                                     <li>
                                         <strong>Date:</strong> {{ class.date }}
                                     </li>
                                     <li>
                                         <strong>Time:</strong> {{ class.start_time|time:"H:i" }}
-                                        &ndash; {{ class.end_time|time:"H:i" }}
+                                        - {{ class.end_time|time:"H:i" }}
                                     </li>
                                     <li>
                                         <strong>Capacity:</strong> {{ class.capacity }} spots
@@ -82,10 +82,17 @@
                                         This class has been cancelled due to teacher unavailability. Please check other available classes.
                                     </p>
                                 {% else %}
-                                    <button type="button"
-                                            class="btn btn-info"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#classDetailsModal-{{ class.id }}">Book now</button>
+                                    {% if user.is_authenticated %}
+                                        <form method="post"
+                                              action="{% url 'create_checkout_session' %}"
+                                              class="d-inline">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="yoga_class_id" value="{{ class.id }}">
+                                            <button type="submit" class="btn btn-info">Book now</button>
+                                        </form>
+                                    {% else %}
+                                        <a href="{% url 'login' %}" class="btn btn-info">Login to Book</a>
+                                    {% endif %}
                                 {% endif %}
                                 <button type="button"
                                         class="btn btn-outline-success"
@@ -155,11 +162,11 @@
                         {% if page_obj.has_previous %}
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="?page={{ page_obj.previous_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %}">&laquo; Previous</a>
+                                   href="?page={{ page_obj.previous_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %}"><< Previous</a>
                             </li>
                         {% else %}
                             <li class="page-item disabled">
-                                <span class="page-link">&laquo; Previous</span>
+                                <span class="page-link"><< Previous</span>
                             </li>
                         {% endif %}
                         <li class="page-item disabled">
@@ -168,11 +175,11 @@
                         {% if page_obj.has_next %}
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="?page={{ page_obj.next_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %} "><!--will add the params from initial page in previous request so it keeps same request -->Next &raquo;</a>
+                                   href="?page={{ page_obj.next_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %} "><!--will add the params from initial page in previous request so it keeps same request -->Next >></a>
                             </li>
                         {% else %}
                             <li class="page-item disabled">
-                                <span class="page-link">Next &raquo;</span>
+                                <span class="page-link">Next >></span>
                             </li>
                         {% endif %}
                     </ul>

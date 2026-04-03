@@ -134,12 +134,28 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For production static fil
 # Media files (User uploads like profile pictures)
 # Use Cloudinary for media storage
 #storages variable is used to configure the storage backends for both static files and media files. In this case, we are using Cloudinary for media storage and WhiteNoise for static file storage in production. The MEDIA_URL variable is set to '/media/' which is the URL prefix for serving media files in the application. This means that any media files uploaded by users (like profile pictures) will be accessible via URLs that start with '/media/'.
-STORAGES = {
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')  # Get Cloudinary URL from environment variable
+HAS_CLOUDINARY = bool(CLOUDINARY_URL)  # Check if Cloudinary URL is set
+if HAS_CLOUDINARY:
+    STORAGES = {
     'default': {
         'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
     },
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
     },
-}
+    }
+else:
+    STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+    }
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # Local media storage for development (used if Cloudinary is not configured)
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
