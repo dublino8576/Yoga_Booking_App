@@ -17,7 +17,7 @@ class Yoga_Class_List(generic.ListView):
     model = Yoga_Class
     template_name = 'classes/class_list.html'
     context_object_name = 'classes'
-    paginate_by = 2
+    paginate_by = 3
     def get_queryset(self):
         queryset = super().get_queryset().select_related('teacher', 'yoga_types') #optimize the query by using select_related to fetch the related teacher and yoga type objects in a single query (this reduces the number of database queries and improves performance)
         date = self.request.GET.get('date')
