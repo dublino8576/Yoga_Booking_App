@@ -52,6 +52,18 @@ header {
 
 footer,
 .navbar.bg-dark.navbar-dark {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(var(--color-brand-900)),
+    to(var(--color-brand-800))
+  );
+  background: -o-linear-gradient(
+    left,
+    var(--color-brand-900),
+    var(--color-brand-800)
+  );
   background: linear-gradient(
     90deg,
     var(--color-brand-900),
@@ -104,6 +116,10 @@ footer,
   position: absolute;
   top: 0;
   width: 0%;
+
+  -webkit-transition: all ease-in-out 250ms;
+
+  -o-transition: all ease-in-out 250ms;
 
   transition: all ease-in-out 250ms;
 }
@@ -194,6 +210,22 @@ footer,
   border-color: var(--color-border-soft);
 }
 
+.form-control::-webkit-input-placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-control::-moz-placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-control:-ms-input-placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-control::-ms-input-placeholder {
+  color: var(--color-text-muted);
+}
+
 .form-control::placeholder {
   color: var(--color-text-muted);
 }
@@ -201,6 +233,7 @@ footer,
 .form-control:focus,
 .form-select:focus {
   border-color: var(--color-brand-200);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(200, 166, 255, 0.35);
   box-shadow: 0 0 0 0.2rem rgba(200, 166, 255, 0.35);
 }
 
@@ -232,6 +265,7 @@ footer,
   display: block; /* Remove default inline spacing */
   width: 100%;
   height: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
   position: absolute;
   inset: 0;
@@ -322,5 +356,3 @@ footer,
 .alert-glass.alert-dark {
   --bs-alert-bg: var(--color-alert-dark);
 }
-
-/* Responsive adjustments for smaller screens */
