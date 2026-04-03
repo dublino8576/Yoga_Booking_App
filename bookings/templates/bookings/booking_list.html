@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <h1 class="mb-4">My Bookings</h1>
+    {# Active Bookings Section #}
+    <div class="mb-5">
+        <h2 class="mb-3">Upcoming Classes</h2>
+        {% if active_bookings %}
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for booking in active_bookings %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-success">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="card-title mb-0">{{ booking.yoga_class.yoga_types.title }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2">
+                                    <strong>Teacher:</strong> {{ booking.yoga_class.teacher.name }} {{ booking.yoga_class.teacher.surname }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Date:</strong> {{ booking.yoga_class.date }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Time:</strong> {{ booking.yoga_class.start_time|time:"H:i" }} - {{ booking.yoga_class.end_time|time:"H:i" }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Price:</strong> £{{ booking.amount_paid }}
+                                </p>
+                                <p>
+                                    <span class="badge bg-success">Confirmed</span>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <form method="post"
+                                      action="{% url 'cancel_booking' booking.id %}"
+                                      class="d-inline">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Cancel Booking</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No upcoming bookings. <a href="{% url 'class_list' %}" class="alert-link">Browse classes</a>
+            </div>
+        {% endif %}
+    </div>
+    {# Cancelled Bookings Section #}
+    {% if cancelled_bookings %}
+        <div class="mb-5">
+            <h2 class="mb-3">Cancelled Bookings</h2>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for booking in cancelled_bookings %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-danger opacity-75">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="card-title mb-0">{{ booking.yoga_class.yoga_types.title }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2">
+                                    <strong>Teacher:</strong> {{ booking.yoga_class.teacher.name }} {{ booking.yoga_class.teacher.surname }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Date:</strong> {{ booking.yoga_class.date }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Time:</strong> {{ booking.yoga_class.start_time|time:"H:i" }} - {{ booking.yoga_class.end_time|time:"H:i" }}
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Cancelled on:</strong> {{ booking.cancelled_at|date:"d M Y" }}
+                                </p>
+                                <p>
+                                    <button class="btn btn-sm btn-danger">Cancelled</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="mt-4">
+        <a href="{% url 'class_list' %}" class="btn btn-primary">Browse Classes</a>
+    </div>
+</div>

@@ -1,5 +1,4 @@
 from django.db import models
-from accounts.models import User_Account
 from classes.models import Yoga_Class
 # Create your models here.
 BOOKING_STATUS_CHOICES = [
@@ -8,7 +7,7 @@ BOOKING_STATUS_CHOICES = [
     (2, 'Cancelled'),
 ]
 class Booking(models.Model):
-    user = models.ForeignKey("accounts.User_Account", verbose_name="User", on_delete=models.CASCADE) #create a foreign key relationship between Booking and User models, with a related name of 'bookings' for reverse lookups (the unique=True argument ensures that each user can only have one booking, which is necessary to prevent multiple bookings for the same class by the same user)
+    user = models.ForeignKey("auth.User", verbose_name="User", on_delete=models.CASCADE) #create a foreign key relationship between Booking and User models, with a related name of 'bookings' for reverse lookups (the unique=True argument ensures that each user can only have one booking, which is necessary to prevent multiple bookings for the same class by the same user)
     yoga_class = models.ForeignKey("classes.Yoga_Class", verbose_name="Yoga Class", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     cancelled_at = models.DateTimeField(null=True, blank=True)
