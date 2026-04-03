@@ -1,15 +1,15 @@
 <div class="container mt-5">
-    <h1 class="mb-4">My Bookings</h1>
+    <h2 class="mb-4 h1">My Bookings</h2>
     {# Active Bookings Section #}
     <div class="mb-5">
-        <h2 class="mb-3">Upcoming Classes</h2>
+        <h3 class="mb-3 h2">Upcoming Classes</h3>
         {% if active_bookings %}
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for booking in active_bookings %}
                     <div class="col">
                         <div class="card h-100 shadow-sm border-success">
                             <div class="card-header bg-success text-white">
-                                <h3 class="card-title h5 mb-0">{{ booking.yoga_class.yoga_types.title }}</h3>
+                                <h4 class="card-title h5 mb-0">{{ booking.yoga_class.yoga_types.title }}</h4>
                             </div>
                             <div class="card-body">
                                 <p class="mb-2">
@@ -49,13 +49,13 @@
     {# Cancelled Bookings Section #}
     {% if cancelled_bookings %}
         <div class="mb-5">
-            <h2 class="mb-3">Cancelled Bookings</h2>
+            <h3 class="mb-3 h2">Cancelled Bookings</h3>
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for booking in cancelled_bookings %}
                     <div class="col">
                         <div class="card h-100 shadow-sm border-danger opacity-75">
                             <div class="card-header bg-danger text-white">
-                                <h3 class="card-title h5 mb-0">{{ booking.yoga_class.yoga_types.title }}</h3>
+                                <h4 class="card-title h5 mb-0">{{ booking.yoga_class.yoga_types.title }}</h4>
                             </div>
                             <div class="card-body">
                                 <p class="mb-2">
