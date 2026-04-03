@@ -35,7 +35,7 @@ def create_checkout_session(request):
     ).exists()
     if already_booked:
         messages.info(request, "You already have a booking for this class.")
-        return redirect("booking_list")
+        return redirect("my_profile")
 
     # Check if class is at capacity
     confirmed_count = Booking.objects.filter(
@@ -123,7 +123,7 @@ def checkout_success(request):
     except stripe.error.StripeError as e:
         messages.error(request, f"Stripe error: {str(e)}")
 
-    return redirect("booking_list")
+    return redirect("my_profile")
 
 
 @login_required
