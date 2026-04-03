@@ -9,7 +9,7 @@
 {% block content %}
     <div class="container mb-5">
         <div class="row justify-content-center">
-            <h2 class="pt-5 pb-3 mb-4">Welcome {{ user.username }}!</h2>
+            <h1 class="pt-5 h2 pb-3 mb-4">Welcome {{ user.username }}!</h1>
             <div class="col-12 col-lg-6 d-flex flex-column align-items-center position-relative mb-4 mb-lg-0 py-3">
                 <form id="profile-img-form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -49,7 +49,7 @@
                     Welcome to your profile page! Here you can view and manage your account details, bookings, and preferences. Feel free to explore and update your information as needed.
                 </p>
                 <div class="card border rounded p-4 w-100">
-                    <h5 class="mb-3">Personal Details</h5>
+                    <h2 class="mb-3 h5">Personal Details</h2>
                     <div class="mb-2">
                         <strong>Name:</strong> {{ profile_user.first_name }} {{ profile_user.last_name }}
                     </div>
