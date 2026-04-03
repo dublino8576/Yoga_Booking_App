@@ -152,7 +152,7 @@ else:
         
     },
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
     },
     }
 MEDIA_URL = '/media/'
