@@ -280,19 +280,8 @@ Fields include:
 - Migrations were used throughout development to manage schema changes.
 
 ### ER Diagram
-
-If you have a saved ERD image, place it here in the repository and link it below.
-
-![Yoga Lane ERD](path/to/your-erd-image.png)
-
-```mermaid
-erDiagram
-    YOGA_TYPE ||--o{ YOGA_CLASS : contains
-    TEACHER ||--o{ YOGA_CLASS : teaches
-    TEACHER }o--o{ YOGA_TYPE : qualified_for
-    YOGA_CLASS ||--o{ BOOKING : has
-    AUTH_USER ||--o{ BOOKING : makes
-```
+Payment table will be added in future updates when the waitlist feature will be added, so that yoga students can queue for a full class and complete the booking at a later stage.
+<img width="1565" height="1019" alt="Screenshot 2026-04-03 214215" src="https://github.com/user-attachments/assets/73bd83d4-985a-479d-a622-f39f64d69e0c" />
 
 ---
 
