@@ -64,7 +64,7 @@
                                 {% endif %}
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ class.teacher.name }} {{ class.teacher.surname }}</h5>
+                                <h2 class="card-title h5">{{ class.teacher.name }} {{ class.teacher.surname }}</h2>
                                 <ul class="list-unstyled mb-0 small ">
                                     <li>
                                         <strong>Date:</strong> {{ class.date }}
@@ -107,14 +107,15 @@
                          data-bs-backdrop="static"
                          data-bs-keyboard="false"
                          tabindex="-1"
+                         role="dialog"
                          aria-labelledby="classDetailsModalLabel-{{ class.id }}"
                          aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="classDetailsModalLabel-{{ class.id }}">
+                                    <h2 class="modal-title fs-5" id="classDetailsModalLabel-{{ class.id }}">
                                         {{ class.yoga_types.title }} with {{ class.teacher.name }} {{ class.teacher.surname }}
-                                    </h1>
+                                    </h2>
                                     <button type="button"
                                             class="btn-close"
                                             data-bs-dismiss="modal"
@@ -162,11 +163,11 @@
                         {% if page_obj.has_previous %}
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="?page={{ page_obj.previous_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %}"><< Previous</a>
+                                   href="?page={{ page_obj.previous_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %}">&lt;&lt; Previous</a>
                             </li>
                         {% else %}
                             <li class="page-item disabled">
-                                <span class="page-link"><< Previous</span>
+                                <span class="page-link">&lt;&lt; Previous</span>
                             </li>
                         {% endif %}
                         <li class="page-item disabled">
@@ -175,11 +176,11 @@
                         {% if page_obj.has_next %}
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="?page={{ page_obj.next_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %} "><!--will add the params from initial page in previous request so it keeps same request -->Next >></a>
+                                   href="?page={{ page_obj.next_page_number }}{% if active_filters_query %}&{{ active_filters_query }}{% endif %} "><!--will add the params from initial page in previous request so it keeps same request -->Next &gt;&gt;</a>
                             </li>
                         {% else %}
                             <li class="page-item disabled">
-                                <span class="page-link">Next >></span>
+                                <span class="page-link">Next &gt;&gt;</span>
                             </li>
                         {% endif %}
                     </ul>
